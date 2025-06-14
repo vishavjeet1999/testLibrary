@@ -2,6 +2,9 @@ package com.awesomelibrary
 
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.module.annotations.ReactModule
+import com.facebook.react.bridge.Promise
+import android.content.Context
+import android.os.BatteryManager
 
 @ReactModule(name = AwesomeLibraryModule.NAME)
 class AwesomeLibraryModule(reactContext: ReactApplicationContext) :
@@ -20,6 +23,29 @@ class AwesomeLibraryModule(reactContext: ReactApplicationContext) :
   override fun square(a: Double): Double {
     return a * a
   }
+
+  
+  override fun getBatteryHealth(): Promise {
+    return try {
+      val batteryManager = reactContext.getSystemService(Context.BATTERY_SERVICE) as BatteryManager
+      val health = batteryManager.health
+      val batteryHealth = when (health) {
+        BatteryManager.BATTERY_HEALTH_GOOD -> "good"
+        BatteryManager.BATTERY_HEALTH_COLD -> "cold"
+        BatteryManager.BATTERY_HEALTH_DEAD -> "dead"
+        BatteryManager.BATTERY_HEALTH_OVERHEAT -> "overheat"
+        BatteryManager.BATTERY_HEALTH_OVER_VOLTAGE -> "over_voltage"
+        BatteryManager.BATTERY_HEALTH_UNKNOWN -> "unknown"
+        BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE -> "unspecified_failure"
+        else -> "unknown"
+      }
+
+      Promise.resolve(batteryHealth)
+    } catch (e: Exception) {
+      Promise.reject(e)
+    }
+  }
+
 
   companion object {
     const val NAME = "AwesomeLibrary"
