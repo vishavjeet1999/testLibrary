@@ -9,6 +9,12 @@ RCT_EXPORT_MODULE()
     return result;
 }
 
+- (NSNumber *)square:(double)a {
+    NSNumber *result = @(a * a);
+
+    return result;
+}
+
 - (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:
     (const facebook::react::ObjCTurboModule::InitParams &)params
 {

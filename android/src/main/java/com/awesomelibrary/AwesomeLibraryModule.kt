@@ -17,6 +17,10 @@ class AwesomeLibraryModule(reactContext: ReactApplicationContext) :
     return a * b
   }
 
+  override fun square(a: Double): Double {
+    return a * a
+  }
+
   companion object {
     const val NAME = "AwesomeLibrary"
   }
