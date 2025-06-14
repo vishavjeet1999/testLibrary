@@ -5,5 +5,5 @@ export function multiply(a: number, b: number): number {
 }
 
 export function square(a: number): number {
-  return AwesomeLibrary.square(a, a);
+  return AwesomeLibrary.multiply(a, a);
 }
