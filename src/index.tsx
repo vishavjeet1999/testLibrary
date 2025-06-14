@@ -8,6 +8,3 @@ export function square(a: number): number {
   return AwesomeLibrary.square(a);
 }
 
-export async function getBatteryHealth(): Promise<string> {
-  return await AwesomeLibrary.getBatteryHealth();
-}
